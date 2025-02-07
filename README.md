@@ -19,7 +19,6 @@ This API is written using Python - FastAPI and will be hosted on Azure when comp
   - API for accessing gift data for users
 
 #### Architecture
-- app
   - data
     - This is where referenced data is stored. ~~Holds things like my resume information in a json file.~~ Holds the mongoDB connection and is referenced by services that need db access.
   - models
@@ -34,10 +33,6 @@ This API is written using Python - FastAPI and will be hosted on Azure when comp
     - This is where the environment configuration is stored.
   - main
     - The main entry point for the server. Where all the endpoints are initialized.
-- scripts
-  - This is where I store any scripts I write for convenience's sake.
-- tests
-  - Where unit tests are stored and run.
 
 #### Update (1/2/25)
 
