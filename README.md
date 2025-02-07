@@ -18,18 +18,6 @@ This API is written using Python - FastAPI and will be hosted on Azure when comp
 - /ribbon
   - API for accessing gift data for users
 
-#### Creating venv
-##### Windows:
-1) open powershell terminal
-2) python -m venv .venv
-3) .venv\Scripts\activate
-4) pip install -r requirements.txt
-
-#### Starting the server
-
-1) open a terminal
-2) type "npm run start"
-
 #### Architecture
 - app
   - data
