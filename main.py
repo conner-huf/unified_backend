@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routes import resume_api
+from routes import resume_api, noodle_api
 
 app = FastAPI(
   title="Unified Backend API",
@@ -18,6 +18,7 @@ app.add_middleware(
 )
 
 app.include_router(resume_api.router, prefix="/resume", tags=["Resume site"])
+app.include_router(noodle_api.router, prefix="/noodle", tags=["Noodle Backend"])
 
 @app.get("/")
 async def root():
