@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from routes import resume_api
+
 app = FastAPI(
   title="Unified Backend API",
   description="This a single backend API to serve all of my personal projects from one hosted location.",
@@ -14,6 +16,8 @@ app.add_middleware(
   allow_methods=["*"],
   allow_headers=["*"],
 )
+
+app.include_router(resume_api.router, prefix="/resume", tags=["Resume site"])
 
 @app.get("/")
 async def root():
