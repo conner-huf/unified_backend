@@ -37,3 +37,7 @@ This API is written using Python - FastAPI and will be hosted on Azure when comp
 #### Update (1/2/25)
 
 I've added a new portion to this backend, I'm currently calling it Red Ribbon. I want this to serve as a backend data manipulation endpoint for storing wishlists, users, and other data that will support a frontend app for organizing things like secret santa and deciding what gifts to get your loved ones on holidays.
+
+#### Update (2/13/25)
+
+Over the past few weeks, I moved this to a new repo because I wanted to get this connected with an Azure App service. Da-da-daaaaa, now I've officially consolidated my backend APIs into this one (the ones I still want, anyway). I've also got this set up with CI/CD so that it'll auto-deploy changes to main when a branch gets merged. I've found a new thing I want to work on for a bit, so Red Ribbon is on the back burner for a second here, but I'll be back on it soon.
