@@ -10,5 +10,6 @@ class Config:
   SPOTIFY_CLIENT_SECRET: str = os.getenv("SPOTIFY_CLIENT_SECRET")
   TICKETMASTER_API_KEY: str = os.getenv("TICKETMASTER_API_KEY")
   TICKETMASTER_SECRET: str = os.getenv("TICKETMASTER_SECRET")
+  POLYGON_API_KEY: str = os.getenv("POLYGON_API_KEY")
 
 config = Config()
