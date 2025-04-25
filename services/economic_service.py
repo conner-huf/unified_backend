@@ -20,7 +20,7 @@ class EconomicService:
     @staticmethod
     def get_historical_data(ticker: str) -> dict:
         try:
-            url = f"{EconomicService.BASE_URL}/v2/aggs/ticker/{ticker}/range/1/day/2023-01-01/2023-12-31"
+            url = f"{EconomicService.BASE_URL}/v2/aggs/ticker/{ticker}/range/1/day/2025-01-01/2025-03-31"
             params = {"apiKey": EconomicService.API_KEY}
             response = requests.get(url, params=params)
             response.raise_for_status()
