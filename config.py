@@ -11,5 +11,6 @@ class Config:
   TICKETMASTER_API_KEY: str = os.getenv("TICKETMASTER_API_KEY")
   TICKETMASTER_SECRET: str = os.getenv("TICKETMASTER_SECRET")
   POLYGON_API_KEY: str = os.getenv("POLYGON_API_KEY")
+  FRED_API_KEY: str = os.getenv("FRED_API_KEY")
 
 config = Config()

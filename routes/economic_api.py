@@ -1,44 +1,38 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from services.economic_service import EconomicService
+from datetime import date
 
 router = APIRouter()
 
 @router.get("/", response_model=dict)
 def welcome():
   return {
-    "welcome": "Welcome to the Stocks API. This API allows you to fetch stock market data.",
+    "welcome": "Welcome to the Economic API. This API allows you to fetch data on the current and historic prices of common household goods.",
     "valid routes": {
-      "/price/{ticker}": "Get the latest price of a stock",
-      "/historical/{ticker}": "Get historical data of a stock",
-      "/company/{ticker}": "Get company information",
-    }
+      "product/{term}": "Get historical prices of a good.",
+      }
   }
 
-@router.get("/price/{ticker}", response_model=dict)
-def get_stock_price(ticker: str):
+@router.get("/product/{term}", response_model=dict)
+def get_product_data(term: str):
   try:
-    price = EconomicService.get_stock_price(ticker)
-    return {"ticker": ticker, "price": price}
-  except RuntimeError as e:
-    raise HTTPException(status_code=500, detail=f"Service error: {str(e)}")
-  except Exception as e:
-    raise HTTPException(status_code=500, detail=f"Unexpected server error: {str(e)}")
+    product_data = EconomicService.get_product_data(term)
+    if "error" in product_data:
+      raise HTTPException(status_code=500, detail=product_data["error"])
+    
+    series_id = product_data.get("seriess", [{}])[0].get("id", None)
+    if not series_id:
+      raise HTTPException(status_code=404, detail="Series ID not found for the given product.")
 
-@router.get("/historical/{ticker}", response_model=dict)
-def get_historical_data(ticker: str):
-  try:
-    historical_data = EconomicService.get_historical_data(ticker)
-    return {"ticker": ticker, "historical_data": historical_data}
-  except RuntimeError as e:
-    raise HTTPException(status_code=500, detail=f"Service error: {str(e)}")
-  except Exception as e:
-    raise HTTPException(status_code=500, detail=f"Unexpected server error: {str(e)}")
+    price_observations = EconomicService.get_price_observations(series_id)
+    if "error" in price_observations:
+      raise HTTPException(status_code=500, detail=price_observations["error"])
 
-@router.get("/company/{ticker}", response_model=dict)
-def get_company_information(ticker: str):
-  try:
-    company_info = EconomicService.get_company_information(ticker)
-    return {"ticker": ticker, "company_info": company_info}
+    return {
+      "product": term,
+      "historical_data": product_data,
+      "price_observations": price_observations  
+    }
   except RuntimeError as e:
     raise HTTPException(status_code=500, detail=f"Service error: {str(e)}")
   except Exception as e:
