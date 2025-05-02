@@ -37,3 +37,18 @@ def get_product_data(term: str):
     raise HTTPException(status_code=500, detail=f"Service error: {str(e)}")
   except Exception as e:
     raise HTTPException(status_code=500, detail=f"Unexpected server error: {str(e)}")
+
+@router.get("/USDIndex", response_model=dict)
+def get_USDIndex():
+  try:
+    usd_index = EconomicService.get_USDIndex()
+    if "error" in usd_index:
+      raise HTTPException(status_code=500, detail=usd_index["error"])
+    
+    return {
+      "USD_Index": usd_index
+    }
+  except RuntimeError as e:
+    raise HTTPException(status_code=500, detail=f"Service error: {str(e)}")
+  except Exception as e:
+    raise HTTPException(status_code=500, detail=f"Unexpected server error: {str(e)}")
