@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routes import resume_api, noodle_api, ribbon_api, economic_api
+from routes import resume_api, noodle_api, ribbon_api, economic_api, calendar_api
 
 app = FastAPI(
   title="Unified Backend API",
@@ -21,6 +21,7 @@ app.include_router(resume_api.router, prefix="/resume", tags=["Resume site"])
 app.include_router(noodle_api.router, prefix="/noodle", tags=["Noodle Backend"])
 app.include_router(ribbon_api.router, prefix="/ribbon", tags=["Red Ribbon Backend"])
 app.include_router(economic_api.router, prefix="/economic", tags=["Economic API"])
+app.include_router(calendar_api.router, prefix="/calendar", tags=["Calendar Scheduling"])
 
 @app.get("/")
 async def root():
@@ -30,6 +31,7 @@ async def root():
       "/resume": "API for accessing my resume",
       "/noodle": "Noodle Backend",
       "/ribbon": "API for accessing gift data for users",
-      "/economic": "API for accessing economic data"
+      "/economic": "API for accessing economic data",
+      "/calendar": "API for scheduling calendar events",
     }
   }

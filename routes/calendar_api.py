@@ -7,8 +7,8 @@ router = APIRouter()
 class AppointmentRequest(BaseModel):
     name: str
     email: str
-    start_time: str  # ISO 8601 format
-    end_time: str    # ISO 8601 format
+    start_time: str  
+    end_time: str    
     description: str = ""
 
 @router.post("/book", status_code=201)

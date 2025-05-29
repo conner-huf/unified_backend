@@ -1,11 +1,13 @@
 import os
+import json
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from pydantic import BaseModel
 
-# The email of the calendar owner (example@gmail.com)
-CALENDAR_ID = os.getenv("GOOGLE_CALENDAR_ID", "example@gmail.com")
-SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_SERVICE_ACCOUNT_FILE", "service_account.json")
+email_account = "example@gmail.com"
+CALENDAR_ID = os.getenv("GOOGLE_CALENDAR_ID", email_account)
+service_account_info = json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"])
+
 
 class AppointmentRequest(BaseModel):
     name: str
@@ -17,8 +19,8 @@ class AppointmentRequest(BaseModel):
 class CalendarService:
     @staticmethod
     async def create_event(appointment: AppointmentRequest):
-        credentials = service_account.Credentials.from_service_account_file(
-            SERVICE_ACCOUNT_FILE,
+        credentials = service_account.Credentials.from_service_account_info(
+            service_account_info,
             scopes=['https://www.googleapis.com/auth/calendar']
         )
 
@@ -35,9 +37,6 @@ class CalendarService:
                 'dateTime': appointment.end_time,
                 'timeZone': 'UTC',
             },
-            'attendees': [
-                {'email': appointment.email},
-            ],
         }
 
         created_event = service.events().insert(calendarId=CALENDAR_ID, body=event).execute()
