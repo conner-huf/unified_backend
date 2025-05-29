@@ -4,10 +4,9 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from pydantic import BaseModel
 
-email_account = "example@gmail.com"
+email_account = "conner.huf@gmail.com"
 CALENDAR_ID = os.getenv("GOOGLE_CALENDAR_ID", email_account)
 service_account_info = json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"])
-
 
 class AppointmentRequest(BaseModel):
     name: str
